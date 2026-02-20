@@ -4,6 +4,7 @@ import StartScreen from './components/StartScreen'
 import GameLayout from './components/GameLayout'
 import gifSrc from './assets/littleguy.gif'
 import audioSrc from './assets/music.wav'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -55,6 +56,7 @@ function App() {
       ) : (
         <GameLayout />
       )}
+      <Analytics />
     </>
   );
 }
