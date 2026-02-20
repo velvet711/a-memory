@@ -1,0 +1,192 @@
+/**
+ * GameLayout.module.css
+ * 
+ * This file contains all styles for the GameLayout component.
+ * Using CSS Modules keeps styles scoped to this component only.
+ * 
+ * Layout breakdown:
+ * - gameContainer: Full screen flex container
+ * - imageContainer: Top ~2/3 of screen (tall section)
+ * - dialogueContainer: Bottom ~1/3 of screen (dialogue section)
+ */
+
+/* Shake animation keyframes */
+@keyframes shake {
+  0% { transform: translateX(0) translateY(0); }
+  10% { transform: translateX(-3px) translateY(-3px); }
+  20% { transform: translateX(3px) translateY(3px); }
+  30% { transform: translateX(-3px) translateY(-3px); }
+  40% { transform: translateX(3px) translateY(3px); }
+  50% { transform: translateX(-3px) translateY(-3px); }
+  60% { transform: translateX(3px) translateY(3px); }
+  70% { transform: translateX(-3px) translateY(-3px); }
+  80% { transform: translateX(3px) translateY(3px); }
+  90% { transform: translateX(-3px) translateY(-3px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.gameContainer {
+  /* Full screen flex container */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh; /* 100% of viewport height */
+  background-color: #000000;
+  overflow: hidden; /* Prevent scrolling */
+  position: relative;
+  will-change: transform;
+}
+
+.gameContainer.shake {
+  /* Apply shake animation when isShaking is true */
+  animation: shake 0.4s ease-in-out;
+}
+
+.gameContainer.shake .dialogueText {
+  /* Text turns to shake color during shake */
+  color: var(--shake-color);
+}
+
+.gameContainer.shake .imageContainer {
+  /* Border turns to shake color during shake */
+  border-bottom-color: var(--shake-color);
+}
+
+.gameContainer.shake .imagePlaceholder {
+  /* Image border turns to shake color during shake */
+  border-color: var(--shake-color);
+}
+
+.gameContainer.shake .actionButton {
+  /* Button text turns to shake color during shake, border stays gray */
+  color: var(--shake-color);
+}
+
+.imageContainer {
+  /* Top section - takes up more space for the image */
+  flex: 1; /* Takes ~50% of available space */
+  background-color: #000000;
+  border-bottom: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.imagePlaceholder {
+  /* Placeholder for the actual pixel-art image */
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666666;
+  font-size: 18px;
+  font-family: 'Xanh Mono', monospace;
+}
+
+.gameImage {
+  /* Game image styling */
+  max-width: 30%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.dialogueContainer {
+  /* Bottom section - dialogue and button */
+  flex: 1; /* Takes ~50% of available space */
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+.dialogueBox {
+  /* Container for dialogue and button together */
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  position: relative;
+  height: 200px;
+}
+
+.dialogueText {
+  /* The actual dialogue text */
+  color: #ffffff;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 24px;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0; /* Remove default margin */
+  letter-spacing: 1px; /* Adds to the monospace feel */
+  white-space: pre-wrap; /* Preserves line breaks */
+}
+
+.actionButton {
+  /* The "...and" button */
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 2px solid #444444;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  letter-spacing: 1px;
+  position: absolute;
+  outline: none;
+}
+
+.actionButton:hover {
+  /* No visual change on hover */
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+.actionButton:focus {
+  /* No visual change on focus */
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #444444;
+  outline: none;
+}
+
+.actionButton:active {
+  /* Slight visual feedback when clicked */
+  opacity: 0.8;
+}
+
+.actionButton:disabled {
+  /* Disabled state for when transition is happening */
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/**
+ * Responsive adjustments for smaller screens
+ */
+@media (max-width: 768px) {
+  .dialogueText {
+    font-size: 14px;
+  }
+
+  .actionButton {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .imagePlaceholder {
+    font-size: 14px;
+  }
+}

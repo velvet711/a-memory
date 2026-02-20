@@ -1,0 +1,161 @@
+/**
+ * StartScreen.module.css
+ * 
+ * Styles for the start screen component.
+ * Full-screen layout with GIF at top and controls at bottom.
+ */
+
+.startContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  overflow: auto;
+  padding-top: 40px;
+}
+
+.gifContainer {
+  /* Top section for GIF display */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  min-height: 50%;
+}
+
+.gif {
+  /* Actual GIF image */
+  max-width: 400px;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.controlsContainer {
+  /* Bottom section for controls */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+  min-height: 50%;
+  padding: 40px 20px;
+  margin-top: -80px;
+}
+
+.volumeControl {
+  /* Volume slider section */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.volumeControl label {
+  font-family: 'Xanh Mono', monospace;
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.volumeRow {
+  /* Container for slider and play/pause button side by side */
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+}
+
+.slider {
+  /* Range slider for volume */
+  flex: 1;
+  height: 4px;
+  border-radius: 0;
+  background: #444444;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Slider thumb styling (cross-browser) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  background: #ffffff;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  background: #ffffff;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+
+.playPauseButton {
+  /* Play/pause button next to slider */
+  font-family: 'Courier Prime', monospace;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 2px solid #444444;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.playPauseButton:active {
+  opacity: 0.8;
+}
+
+.volumeValue {
+  font-family: 'Xanh Mono', monospace;
+  font-size: 14px;
+  color: #999999;
+  letter-spacing: 1px;
+}
+
+.startButton {
+  /* Main start button */
+  font-family: 'Xanh Mono', monospace;
+  font-size: 24px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  padding: 20px 50px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  letter-spacing: 2px;
+}
+
+.startButton:active {
+  opacity: 0.8;
+}
+
+/**
+ * Responsive adjustments
+ */
+@media (max-width: 768px) {
+  .startContainer {
+    overflow: auto;
+  }
+
+  .startButton {
+    font-size: 16px;
+    padding: 12px 30px;
+  }
+}

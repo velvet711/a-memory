@@ -1,0 +1,66 @@
+/* Import Xanh Mono font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Xanh+Mono&family=Courier+Prime&display=swap');
+
+:root {
+  /* Global design tokens */
+  --font-family: 'Xanh Mono', monospace;
+  --color-text: #ffffff;
+  --color-bg: #000000;
+  --color-border: #ffffff;
+  
+  font-family: var(--font-family);
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-family: var(--font-family);
+  border: 2px solid var(--color-border);
+  padding: 0.8em 1.6em;
+  font-size: 1em;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
