@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './GameLayout.module.css';
 import yhwhGif from '../assets/yhwh.gif';
+import andSfxSrc from '../assets/andsfx.wav';
 
 /**
  * GameLayout Component
@@ -97,6 +98,18 @@ const GameLayout = () => {
   // State to trigger shake animation
   const [isShaking, setIsShaking] = useState(false);
   const [shakeColor, setShakeColor] = useState('#cc0000');
+  const andSfxRef = useRef(null);
+
+  useEffect(() => {
+    const andSfx = new Audio(andSfxSrc);
+    andSfx.loop = false;
+    andSfx.volume = 0.1;
+    andSfxRef.current = andSfx;
+
+    return () => {
+      andSfx.pause();
+    };
+  }, []);
 
   // Typewriter effect: display dialogue text letter by letter
   useEffect(() => {
@@ -141,6 +154,17 @@ const GameLayout = () => {
 
   // Handle button click - get a new random dialogue and position
   const handleButtonClick = () => {
+    if (charIndex < dialogueText.length) {
+      setDisplayedText(dialogueText);
+      setCharIndex(dialogueText.length);
+      return;
+    }
+
+    if (andSfxRef.current) {
+      andSfxRef.current.currentTime = 0;
+      andSfxRef.current.play().catch(err => console.log('And SFX prevented:', err));
+    }
+
     let randomDialogue;
     // Keep picking until we get a different dialogue
     do {

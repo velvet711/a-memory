@@ -5,11 +5,12 @@ import GameLayout from './components/GameLayout'
 import gifSrc from './assets/littleguy.gif'
 import startThemeSrc from './assets/littleguytheme.wav'
 import gameThemeSrc from './assets/dorange.wav'
+import startSfxSrc from './assets/startsfx.wav'
 
 const START_THEME_VOLUME_MULTIPLIER = 0.4;
 const GAME_THEME_VOLUME_MULTIPLIER = 1;
-const SCREEN_FADE_DURATION_MS = 2000;
-const AUDIO_FADE_DURATION_MS = 2000;
+const SCREEN_FADE_DURATION_MS = 2250;
+const AUDIO_FADE_DURATION_MS = 2250;
 const AUDIO_FADE_STEP_MS = 30;
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const startAudioRef = useRef(null);
   const gameAudioRef = useRef(null);
+  const startSfxRef = useRef(null);
   const audioFadeIntervalRef = useRef(null);
   const transitionTimeoutRef = useRef(null);
 
@@ -27,12 +29,15 @@ function App() {
   useEffect(() => {
     const startAudio = new Audio(startThemeSrc);
     const gameAudio = new Audio(gameThemeSrc);
+    const startSfx = new Audio(startSfxSrc);
 
     startAudio.loop = true;
     gameAudio.loop = true;
+    startSfx.loop = false;
 
     startAudioRef.current = startAudio;
     gameAudioRef.current = gameAudio;
+    startSfxRef.current = startSfx;
 
     const baseVolume = volume / 100;
     startAudio.volume = baseVolume * START_THEME_VOLUME_MULTIPLIER;
@@ -47,6 +52,7 @@ function App() {
       }
       startAudio.pause();
       gameAudio.pause();
+      startSfx.pause();
     };
   }, []);
 
@@ -101,6 +107,12 @@ function App() {
   const handleStart = () => {
     if (isTransitioning || currentScreen === 'game') {
       return;
+    }
+
+    if (startSfxRef.current) {
+      startSfxRef.current.currentTime = 0;
+      startSfxRef.current.volume = Math.min(1, volume / 100);
+      startSfxRef.current.play().catch(err => console.log('Start SFX prevented:', err));
     }
 
     setIsTransitioning(true);
