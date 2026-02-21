@@ -39,7 +39,7 @@
 
 .gameContainer.shake {
   /* Apply shake animation when isShaking is true */
-  animation: shake 0.4s ease-in-out;
+  animation: shake 0.65s ease-in-out;
 }
 
 .gameContainer.shake .dialogueText {

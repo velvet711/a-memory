@@ -31,11 +31,65 @@ const GameLayout = () => {
     "now you drink until you forget.",
     "you forget, again..?",
     "a flower tucked behind her ears.",
-    "and it kept fading away."
+    "and it kept fading away.",
+    "your right hand, a stranger's.",
+    "your left hand, a stranger's.",
+    "and now your ears were clogged.",
+    "a figure of a skull, on a book atop the shelf.",
+    "neighbours were still visiting back then.",
+    "a pink building you regret.",
+    "a desolate house that made you forget.",
+    "the sun shines in the bedroom when we play.",
+    "a rubber chicken.",
+    "mud inside candy wrappers.",
+    "a hamster and a pillow.",
+    "sloppy joes and the smell of nicotine gums.",
+    "a girl on the bench overseeing the tree.",
+    "a trip to the supermarket.",
+    "an olive festival.",
+    "an olive tree and you —roasted under the sun.",
+    "fishing in the wind. no bites.",
+    "the breeze you revisited later.",
+    "an ice rink, and a puppet show.",
+    "the cow moo'd today.",
+    "a sea of blanket.",
+    "a microscope.",
+    "a temporary drinking problem.",
+    "a trumpet, a drum, and brass.",
+    "dim metro lights.",
+    "another cigarette.",
+    "a cigarette.",
+    "the same names again.",
+    "the instant urge to shit after an iced coffee.",
+    "back pain.",
+    "a brown bear.",
+    "still blossomed the chamomile.",
+    "an embarrassment.",
+    "still you catch the cold.",
+    "blue.",
+    "a dragon egg."
   ];
+
+  const shakeTriggerSentences = new Set([
+    "it was only then that you were.",
+    "now you drink until you forget.",
+    "a figure of a skull, on a book atop the shelf.",
+    "a girl on the bench overseeing the tree.",
+    "the cow moo'd today.",
+    "another cigarette.",
+    "a cigarette.",
+    "back pain.",
+    "and it was ALL.",
+    "and now your ears were clogged.",
+    "an embarrassment."
+  ]);
 
   // State to track the current dialogue
   const [dialogueText, setDialogueText] = useState(dialogueList[0]);
+
+  // State for typewriter animation
+  const [displayedText, setDisplayedText] = useState('');
+  const [charIndex, setCharIndex] = useState(0);
 
   // State for random button position
   const [buttonPosition, setButtonPosition] = useState(getRandomPosition());
@@ -43,6 +97,24 @@ const GameLayout = () => {
   // State to trigger shake animation
   const [isShaking, setIsShaking] = useState(false);
   const [shakeColor, setShakeColor] = useState('#cc0000');
+
+  // Typewriter effect: display dialogue text letter by letter
+  useEffect(() => {
+    setCharIndex(0);
+    setDisplayedText('');
+  }, [dialogueText]);
+
+  // Animate the text display
+  useEffect(() => {
+    if (charIndex < dialogueText.length) {
+      const timeout = setTimeout(() => { 
+        setDisplayedText(dialogueText.substring(0, charIndex + 1));
+        setCharIndex(charIndex + 1);
+      }, 50); // 50ms delay between each character
+
+      return () => clearTimeout(timeout);
+    }
+  }, [charIndex, dialogueText]);
 
   // Function to generate random color (subtle red variations)
   function getRandomColor() {
@@ -78,12 +150,14 @@ const GameLayout = () => {
     setDialogueText(randomDialogue);
     setButtonPosition(getRandomPosition());
     
-    // Trigger shake animation with random color
-    const randomColor = getRandomColor();
-    setShakeColor(randomColor);
-    setIsShaking(true);
-    // Reset shake state after animation completes
-    setTimeout(() => setIsShaking(false), 400); 
+    if (shakeTriggerSentences.has(randomDialogue)) {
+      const randomColor = getRandomColor();
+      setShakeColor(randomColor);
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
+    } else {
+      setIsShaking(false);
+    }
   };
 
   const buttonText = "...and?";
@@ -104,7 +178,7 @@ const GameLayout = () => {
       {/* Bottom Section: Dialogue Box */}
       <div className={styles.dialogueContainer}>
         <div className={styles.dialogueBox}>
-          <p className={styles.dialogueText}>{dialogueText}</p>
+          <p className={styles.dialogueText}>{displayedText}</p>
           <button 
             className={styles.actionButton}
             onClick={handleButtonClick}

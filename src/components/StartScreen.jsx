@@ -65,7 +65,7 @@ const StartScreen = ({ onStart, setVolume, gifSrc, audioSrc, isPlaying, setIsPla
 
         {/* Start Button */}
         <button className={styles.startButton} onClick={onStart}>
-          Start
+          a memory
         </button>
       </div>
     </div>
