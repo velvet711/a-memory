@@ -52,7 +52,7 @@ const GameLayout = () => {
     "fishing in the wind. no bites.",
     "the breeze you revisited later.",
     "an ice rink, and a puppet show.",
-    "the cow moo'd today.",
+    "the cow mooed today.",
     "a sea of blanket.",
     "a microscope.",
     "a temporary drinking problem.",
